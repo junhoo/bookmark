@@ -22,8 +22,13 @@
       'length': 3
     }
 
-    var hash = {'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com'}
-    var hashInLocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
+    var hash = {
+      'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com',
+      't': 'qq.com', 'y': 'qq.com', 'u': 'qq.com', 'i': 'qq.com', 'o': 'qq.com', 'p': 'qq.com',
+      'a': 'alipay.com', 's': 'so.com', 'd': 'douban.com', 'f': 'finance.sina.com.cn', 'g': 'qq.com', 'h': 'qq.com', 'j': 'qq.com', 'k': 'qq.com', 'l': 'qq.com',
+      'z': 'zhihu.com', 'x': 'ctrip.com', 'c': 'cntv.com', 'v': 'baidu.com', 'b': 'baidu.com', 'n': 'baidu.com', 'm': 'baidu.com'
+    }
+    var hashInLocalStorage = JSON.parse(localStorage.getItem('hashzzz') || 'null')
     if (hashInLocalStorage) {
       hash = hashInLocalStorage
     }
@@ -44,7 +49,7 @@
           key = item['target']['id']
           x = prompt('输入编辑的网址')
           hash[key] = x
-          localStorage.setItem('zzz', JSON.stringify(hash))
+          localStorage.setItem('hashzzz', JSON.stringify(hash))
         }
         kbdxxx.appendChild(buttonxxx)
         divxxx.appendChild(kbdxxx)

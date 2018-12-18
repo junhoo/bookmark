@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>my bookmarks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+  <hearder></hearder>
+    <main>
+      <div class="wrapper" id="mainxxx">
+      </div>
+    </main>
+  <footer></footer>
+  <script>
+    var keys = {
+      '0': { 0: 'q', 1: 'w', 2: 'e', 3: 'r', 4: 't', 5: 'y', 6: 'u', 7: 'i', 8: 'o', 9: 'p', 'length': 10 },
+      '1': { 0: 'a', 1: 's', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k', 8: 'l', 'length': 9 },
+      '2': { 0: 'z', 1: 'x', 2: 'c', 3: 'v', 4: 'b', 5: 'n', 6: 'm', 'length': 7 },
+      'length': 3
+    }
+
+    var hash = {'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com'}
+    var hashInLocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null')
+    if (hashInLocalStorage) {
+      hash = hashInLocalStorage
+    }
+
+    var index = 0;
+    while (index < keys['length']) {
+      divxxx = document.createElement('div')
+      mainxxx.appendChild(divxxx)
+      row = keys[index]
+      index2 = 0
+      while (index2 < row['length']) {
+        kbdxxx = document.createElement('kbd')
+        kbdxxx.textContent = row[index2]
+        buttonxxx = document.createElement('button')
+        buttonxxx.textContent = '编辑'
+        buttonxxx.id = row[index2]
+        buttonxxx.onclick = function (item) {
+          key = item['target']['id']
+          x = prompt('输入编辑的网址')
+          hash[key] = x
+          localStorage.setItem('zzz', JSON.stringify(hash))
+        }
+        kbdxxx.appendChild(buttonxxx)
+        divxxx.appendChild(kbdxxx)
+        index2 = index2 + 1
+      }
+
+      document.onkeypress = function (aaa) {
+        var url = 'http://' + hash[aaa.key]
+        if (url.includes('.com')) {
+          window.open(url, '_blank')
+        } else {
+          alert('请输入正确网址')
+        }
+      }
+      index = index + 1
+    }
+
+  </script>
+</body>
+</html>

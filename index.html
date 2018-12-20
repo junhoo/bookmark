@@ -23,12 +23,12 @@
     }
 
     var hash = {
-      'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com',
-      't': 'qq.com', 'y': 'qq.com', 'u': 'qq.com', 'i': 'qq.com', 'o': 'qq.com', 'p': 'qq.com',
-      'a': 'alipay.com', 's': 'so.com', 'd': 'douban.com', 'f': 'finance.sina.com.cn', 'g': 'qq.com', 'h': 'qq.com', 'j': 'qq.com', 'k': 'qq.com', 'l': 'qq.com',
-      'z': 'zhihu.com', 'x': 'ctrip.com', 'c': 'cntv.com', 'v': 'baidu.com', 'b': 'baidu.com', 'n': 'baidu.com', 'm': 'baidu.com'
+      'q': 'v.qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'rensheng5.com',
+      't': 'taobao.com', 'y': 'qq.com', 'u': 'uc.com', 'i': 'iqiyi.com',
+      'a': 'alipay.com', 's': 'so.com', 'd': 'douban.com', 'f': 'finance.sina.com.cn',
+      'z': 'zhihu.com', 'x': 'ctrip.com'
     }
-    var hashInLocalStorage = JSON.parse(localStorage.getItem('hashzzz') || 'null')
+    var hashInLocalStorage = JSON.parse(localStorage.getItem('hash') || 'null')
     if (hashInLocalStorage) {
       hash = hashInLocalStorage
     }
@@ -36,28 +36,53 @@
     var index = 0;
     while (index < keys['length']) {
       divxxx = document.createElement('div')
+      divxxx.className = 'row'
       mainxxx.appendChild(divxxx)
       row = keys[index]
       index2 = 0
       while (index2 < row['length']) {
-        kbdxxx = document.createElement('kbd')
-        kbdxxx.textContent = row[index2]
-        buttonxxx = document.createElement('button')
-        buttonxxx.textContent = '编辑'
-        buttonxxx.id = row[index2]
-        buttonxxx.onclick = function (item) {
-          key = item['target']['id']
-          x = prompt('输入编辑的网址')
-          hash[key] = x
-          localStorage.setItem('hashzzz', JSON.stringify(hash))
+        var span = document.createElement('span')
+        span.textContent = row[index2]
+        span.className = 'text'
+
+        var kbd = document.createElement('kbd')
+        kbd.appendChild(span)
+        kbd.className = 'key'
+
+        var button = document.createElement('button')
+        button.textContent = '编辑'
+        button.id = row[index2]
+        img = document.createElement('img')
+
+        if (hash[row[index2]]) {
+          img.src = 'http://' + hash[row[index2]] + '/favicon.ico'
+        } else {
+          img.src = './image/5a05afbc5e183.png'
         }
-        kbdxxx.appendChild(buttonxxx)
-        divxxx.appendChild(kbdxxx)
+
+        img.onerror = function (item) {
+          item.target.src = './image/5a05afbc5e183.png'
+        }
+
+        button.onclick = function (item) {
+          var _img = item['target'].previousSibling
+          var key = item['target']['id']
+          var x = prompt('输入编辑的网址')
+          hash[key] = x
+          _img.src = 'http://' + x + 'favicon.ico'
+          _img.onerror = function (item) {
+            item.target.src = './image/5a05afbc5e183.png'
+          }
+          localStorage.setItem('hash', JSON.stringify(hash))
+        }
+        kbd.appendChild(img)
+        kbd.appendChild(button)
+        divxxx.appendChild(kbd)
         index2 = index2 + 1
       }
 
-      document.onkeypress = function (aaa) {
-        var url = 'http://' + hash[aaa.key]
+      document.onkeypress = function (item) {
+        var url = 'http://' + hash[item.key]
         if (url.includes('.com')) {
           window.open(url, '_blank')
         } else {
